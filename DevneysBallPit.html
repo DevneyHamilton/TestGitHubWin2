@@ -1,0 +1,100 @@
+<html>
+	<head>
+		<title>GWC Graphics and Animation Week!</title>
+		<meta charset="utf-8">
+		<script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
+		<script type="text/processing" data-processing-target="mycanvas">
+ 		//This is where we code in JavaScript
+
+ 		//var ball; 
+ 		var balls;
+
+ 		void setup(){
+ 			//ball = new Ball(300,300);
+ 			size(800,600);
+			background(17,9,89);
+			numBalls = random(30, 100); 
+	 	    balls = [];
+	 		for(var i = 0; i < numBalls; i++){
+	 			var x = random(10, 800);
+	 			var y = random(10,600)
+	 			var speedX = random(1, 8);
+	 			var speedY = random(1,8);
+	 			var thisRed = random(50, 200);
+	 			var thisGreen = random(50, 200);
+	 			var thisBlue = random(50, 200);
+	 			var thisSize = random(3, 40);
+	 			var newBall = new Ball(x,y , speedX, speedY, thisSize, thisRed, thisGreen, thisBlue);
+	 			balls.push(newBall);
+	 		}
+	 		console.log(balls);
+
+ 		}
+
+
+
+ 		void draw(){
+ 			background(17,9,89);
+ 			console.log("in draw");
+ 			for(i = 0; i < balls.length; i++){
+ 				ball = balls[i];
+ 				ball.drawBall();
+ 				ball.moveBall();
+ 			}
+ 			
+
+ 		}
+
+ 		class Ball {
+ 			//define attributes here
+ 			var xPosition;
+ 			var yPosition;
+ 			var speedX;
+ 			var speedY;
+ 			var size;
+ 			var r;
+ 			var g;
+ 			var b;
+
+ 			//this is my constructor for my Ball class
+ 			Ball(x, y, sx, sy, mySize, myRed, myGreen, myBlue){
+ 				xPosition = x;
+ 				yPosition = y;
+ 				speedX = sx;
+ 				speedY = sy;
+ 				size = mySize;
+ 				r = myRed;
+ 				g = myGreen;
+ 				b = myBlue;
+ 			}
+
+ 			void printPos(){
+ 				console.log(xPosition, yPosition);
+ 			}
+
+ 			void drawBall(){
+ 				fill(r, g, b);
+ 				ellipse(xPosition, yPosition, size, size);
+ 			}
+
+ 			void moveBall(){
+ 				xPosition = xPosition + speedX;
+ 				yPosition = yPosition + speedY;
+ 				//if hitting a side wall
+ 				if(xPosition < 0 || xPosition > 800){
+ 					speedX = speedX * -1;
+ 				}
+ 				if(yPosition < 0 || yPosition > 600){
+ 					speedY = speedY * -1;
+ 				}
+ 			}
+
+
+ 		}
+
+		</script>
+	</head>
+	<body>
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
